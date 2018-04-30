@@ -1,0 +1,6 @@
+name = Domain menus
+description = Add a domain level access to manage menus on permission level.
+core = 7.x
+
+dependencies[] = menu
+dependencies[] = domain

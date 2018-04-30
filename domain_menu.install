@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Implements hook_install().
+ *
+ * Used to tune module weight compared to core's menu one.
+ */
+function domain_menu_install() {
+  // Menu module has a weight of 0, our hooks need to trigger after it.
+  // Have a higher weight, so this is enforced always.
+  db_update('system')
+    ->fields(array('weight' => 10))
+    ->condition('name', 'domain_menu')
+    ->execute();
+}
+
+/**
+ * Implements hook_uninstall().
+ *
+ * Used to remove all variables of the module.
+ */
+function domain_menu_uninstall() {
+  foreach (array_keys(menu_load_all()) as $menu_name) {
+    variable_del("domain_menu_{$menu_name}");
+  }
+}
